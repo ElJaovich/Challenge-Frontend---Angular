@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http'
 import { lastValueFrom } from 'rxjs'
 import { environment } from '../environments/environment.dev'
+import Swal from 'sweetalert2'
 
 @Injectable({
   providedIn: 'root'
@@ -33,14 +34,30 @@ export class HttpServiceService {
 	}
 
 	async post( endpoint: string, param: object ) {
-		const url = environment.http + endpoint
+		const url = endpoint
 		let res
+		const Toast = Swal.mixin({
+			toast: true,
+			position: 'top-end',
+			showConfirmButton: false,
+			timer: 3000,
+			timerProgressBar: true,
+			didOpen: (toast) => {
+			  toast.addEventListener('mouseenter', Swal.stopTimer)
+			  toast.addEventListener('mouseleave', Swal.resumeTimer)
+			}
+		  })
 
 		try {
 			res = await lastValueFrom( this.http.post < any > ( url, param, this.options ) )
-			//console.log( url, res )
 		} catch ( err ) {
-			console.log( 'ERROR: ', err )
+			const error: any = {err}
+			Toast.fire({
+				icon: 'error',
+				title: 'Error!',
+				text: `${error.err.name}`
+			  })
+			console.log( 'Error!: ', error )
 		}
 
 		return res
