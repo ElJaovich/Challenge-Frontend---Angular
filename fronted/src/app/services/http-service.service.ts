@@ -24,7 +24,7 @@ export class HttpServiceService {
 		let res
 
 		try {
-			res = await lastValueFrom( this.http.get < any > ( url, this.options ) )
+			res = await lastValueFrom( this.http.get < any > ( `${url}?apiKey=11891b2ccd694600b3e4b5ae6e382051`, this.options ) )
 			console.log( url, res )
 		} catch ( err ) {
 			console.log( 'ERROR: ', err )

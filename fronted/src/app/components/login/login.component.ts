@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpServiceService } from '../../services/http-service.service'
 import { Router } from '@angular/router'
-
+import { LocalStorageService } from '../../services/local-storage.service'
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit {
   progressBar:boolean = false
   start: boolean = true
 
-  constructor(private router: Router, private http: HttpServiceService, private fb: FormBuilder) {
+  constructor(private localStorageService: LocalStorageService, private router: Router, private http: HttpServiceService, private fb: FormBuilder) {
   
   }
 
@@ -31,6 +31,8 @@ export class LoginComponent implements OnInit {
     console.log('Valid?', form.valid); // true or false
     const res = await this.http.post('http://challenge-react.alkemy.org',{email:'challenge@alkemy.org', password:'react'})
     if (res){
+      console.log(res)
+      this.localStorageService.setItem('token', res.token)
       this.progressBar = false
       this.router.navigate(['home'])
     }

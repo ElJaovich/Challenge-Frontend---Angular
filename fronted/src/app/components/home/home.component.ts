@@ -19,7 +19,8 @@ export class HomeComponent implements OnInit {
     }
 
  async getRecipe(): Promise <void> {
-    const res = await this.http.get('https://jsonplaceholder.typicode.com/posts')
+    const res = await this.http.get('https://api.spoonacular.com/recipes/complexSearch&fillIngredients=true')
+    console.log(res)
    this.data = res
   }
 
