@@ -18,14 +18,13 @@ export class HttpServiceService {
 	constructor ( private http: HttpClient ) {
 	}
 
-	async get( endpoint: string ) {
-		//const url = endpoint + '?apiKey=' + environment.apiKey
+	async get( endpoint: string) {
 		const url = endpoint
 		let res
 
 		try {
-			res = await lastValueFrom( this.http.get < any > ( `${url}?apiKey=11891b2ccd694600b3e4b5ae6e382051`, this.options ) )
-			console.log( url, res )
+			res = await lastValueFrom( this.http.get < any > ( url, this.options ) )
+			//console.log( url, res )
 		} catch ( err ) {
 			console.log( 'ERROR: ', err )
 		}
