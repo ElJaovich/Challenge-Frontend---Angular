@@ -7,12 +7,39 @@
     <title>A la Carta!</title>
 </head>
 <body>
-   <h1>List of Posts: </h1>
+
+   <div class="container">
+    <h1>Menu: </h1>
+    <div class="row">
+        <h2>Normal Dish</h2>
+        <ul class="col ist-group list-group-flush">
+            <li *ngFor="let dish of normalDish; let i = index" class="list-group-item">
+             <div  class="card" style="width: 18rem;">
+                 <img src={{dish.image}} class="card-img-top" alt="100px">
+                 <div class="card-body">
+                   <h5 class="card-title">{{dish.title}}</h5>
+                   <a href="#" class="btn btn-primary">check dish</a>
+                 </div>
+               </div>
+            </li>
+        </ul>
+    </div>
+  </div>
+
+
+   Total Price: {{normalPriceDish}}
+   Average Time Ready: {{normalPriceDish}}
+   Average Health Score: {{normalHealthScore}}
+
+   <h2>Vegan Dish</h2>
    <ul class="list-group list-group-flush">
-       <li *ngFor="let i of data" class="list-group-item">
-        Title: {{i.title}}
-   
-       </li>
+    <li *ngFor="let dish of veganDish; let i = index" class="list-group-item">
+     Title: {{dish.title}}
+
+    </li>
    </ul>
+    Total Price: {{veganPriceDish}}
+    Average Time Ready: {{veganPriceDish}}
+    Average Health Score: {{veganHealthScore}}
 </body>
 </html>

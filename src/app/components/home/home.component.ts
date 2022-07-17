@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpServiceService } from '../../services/http-service.service'
+import { DishService } from '../../services/dish.service'
 
 @Component({
   selector: 'app-home',
@@ -7,49 +7,49 @@ import { HttpServiceService } from '../../services/http-service.service'
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  public veganDishData: Array<object> = []
-  public normalDishData: Array<object> = []
-  public data: any = []
-  private token: string = '11891b2ccd694600b3e4b5ae6e382051'
+
+  public normalPriceDish: number = 0
+  public normalTimeDish: number = 0
+  public normalHealthScore: number = 0
+  public veganPriceDish: number = 0
+  public veganTimeDish: number = 0
+  public veganHealthScore: number = 0
+  public normalDish: any
+  public veganDish: any
 
   constructor(
-    private http:HttpServiceService
-  ) { }
+    private dish:DishService
+  ) {}
 
-    async ngOnInit(): Promise<void>{
-     await this.getNormalDish()
-     await this.getVeganDish()
-     this.getMedia()
+   ngOnInit(){
+    this.getDish()
     }
 
-async getNormalDish(): Promise<void>{
+  async getDish() {
 
-  const normalDish = await this.http.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${this.token}&diet=primal&number=2`)
+      this.normalDish = await this.dish.getNormalDish()
+      this.veganDish = await this.dish.getVeganDish()
 
-  for (let i = 0; i < normalDish.results.length; i++) {
-    const idDish = normalDish.results[i].id
-    const infoDish = await this.http.get(`https://api.spoonacular.com/recipes/${idDish}/information?apiKey=${this.token}`)
-    this.normalDishData.push({title: normalDish.results[i].title, price: infoDish.pricePerServing, healthScore: infoDish.healthScore, timeReady: infoDish.readyInMinutes})
-  } 
-}
+      for (let i = 0; i < this.normalDish.length; i++) {
+        //console.log(normalDish[i].price)
+        //console.log(normalDish[i].normalHealthScore)
+        this.normalTimeDish = this.normalTimeDish + this.normalDish[i].timeReady
+        this.normalPriceDish = this.normalPriceDish + this.normalDish[i].price
+        this.normalHealthScore = this.normalHealthScore + this.normalDish[i].healthScore
+      }
+      console.log('normalTimeDish:',this.normalTimeDish/this.normalDish.length, 'minutes')
+      console.log('normalHealthScore media:', this.normalHealthScore/this.normalDish.length)
+      console.log('total price',this.normalPriceDish)
 
- async getVeganDish(): Promise <void> {
-
-    const veganDish = await this.http.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${this.token}&diet=vegan&number=2`)
-    
-    for (let i = 0; i < veganDish.results.length; i++) {
-      const idDish = veganDish.results[i].id
-      const infoDish = await this.http.get(`https://api.spoonacular.com/recipes/${idDish}/information?apiKey=${this.token}`)
-      this.veganDishData.push({title: veganDish.results[i].title, price: infoDish.pricePerServing, healthScore: infoDish.healthScore, timeReady: infoDish.readyInMinutes})
+      for (let i = 0; i < this.veganDish.length; i++) {
+        this.veganTimeDish = this.veganTimeDish + this.veganDish[i].timeReady
+        this.veganPriceDish = this.veganPriceDish + this.veganDish[i].price
+        this.veganHealthScore = this.veganHealthScore + this.veganDish[i].healthScore
+        //console.log(veganDish[i].price)
+      }
+      console.log('veganTimeDish:',this.veganTimeDish/this.veganDish.length, 'minutes')
+      console.log('veganHealthScore media:', this.veganHealthScore/this.veganDish.length)
+      console.log('total price',this.veganPriceDish)
     }
-  }
-
-  getMedia(){
-    for (let i = 0; i < this.veganDishData.length; i++) {
-      const price = this.veganDishData
-
-      console.log(price)
-    }
-  }
 
 }
