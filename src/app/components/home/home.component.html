@@ -13,33 +13,49 @@
     <div class="row">
         <h2>Normal Dish</h2>
         <ul class="col ist-group list-group-flush">
+          <div *ngIf="deleted">
             <li *ngFor="let dish of normalDish; let i = index" class="list-group-item">
-             <div  class="card" style="width: 18rem;">
-                 <img src={{dish.image}} class="card-img-top" alt="100px">
-                 <div class="card-body">
-                   <h5 class="card-title">{{dish.title}}</h5>
-                   <a href="#" class="btn btn-primary">check dish</a>
-                 </div>
-               </div>
-            </li>
+              <div class="card" style="width: 18rem;">
+                <img src={{dish.image}} class="card-img-top" alt="100px">
+                <div class="card-body">
+                  <h5 class="card-title">{{dish.title}}</h5>
+                  <button (click)="deleteDish( dish )" type='submit'class="btn btn-danger">delete dish</button>
+                </div>
+            </div>
+          </li>
+          </div>
         </ul>
+        <div>
+          <span>Total Price: {{normalPriceDish}}</span>
+          <span>Average Time Ready: {{normalPriceDish}}</span>
+          <span>Average Health Score: {{normalHealthScore}}</span>
+         </div>
     </div>
   </div>
 
 
-   Total Price: {{normalPriceDish}}
-   Average Time Ready: {{normalPriceDish}}
-   Average Health Score: {{normalHealthScore}}
 
+  <div class="container">
    <h2>Vegan Dish</h2>
+   <div class="row">
    <ul class="list-group list-group-flush">
     <li *ngFor="let dish of veganDish; let i = index" class="list-group-item">
-     Title: {{dish.title}}
-
+      <div  class="card" style="width: 18rem;">
+        <img src={{dish.image}} class="card-img-top" alt="100px">
+        <div class="card-body">
+          <h5 class="card-title">{{dish.title}}</h5>
+          <button (click)="deleteDish( dish )" type='submit'class="btn btn-danger">delete dish</button>
+        </div>
+      </div>
     </li>
    </ul>
-    Total Price: {{veganPriceDish}}
-    Average Time Ready: {{veganPriceDish}}
-    Average Health Score: {{veganHealthScore}}
+   <div>
+    <span>Total Price: {{veganPriceDish}}</span>
+    <span>Average Time Ready: {{veganPriceDish}}</span>
+    <span>Average Health Score: {{veganHealthScore}}</span>
+   </div>
+  </div>
+  </div>
+
 </body>
 </html>
