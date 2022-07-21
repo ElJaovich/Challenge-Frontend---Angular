@@ -37,28 +37,34 @@ export class HomeComponent implements OnInit {
         this.normalPriceDish = this.normalPriceDish + this.normalDish[i].price
         this.normalHealthScore = this.normalHealthScore + this.normalDish[i].healthScore
       }
-      //console.log('normalTimeDish:',this.normalTimeDish/this.normalDish.length, 'minutes')
-      //console.log('normalHealthScore media:', this.normalHealthScore/this.normalDish.length)
-      //console.log('total price',this.normalPriceDish)
 
       for (let i = 0; i < this.veganDish.length; i++) {
         this.veganTimeDish = this.veganTimeDish + this.veganDish[i].timeReady
         this.veganPriceDish = this.veganPriceDish + this.veganDish[i].price
         this.veganHealthScore = this.veganHealthScore + this.veganDish[i].healthScore
-        //console.log(veganDish[i].price)
       }
-      //console.log('veganTimeDish:',this.veganTimeDish/this.veganDish.length, 'minutes')
-      //console.log('veganHealthScore media:', this.veganHealthScore/this.veganDish.length)
-     //console.log('total price',this.veganPriceDish)
     }
 
     deleteDish(info:any){
-      console.log(info.id)
-      const result = this.normalDish.splice(0,info.id )
-      console.log(result)
-      
-      //this.deleted = !this.deleted
+      for (let i = 0; i < this.normalDish.length; i++) {
+        if(this.normalDish[i].id == info.id ){
+          this.normalDish.splice(i,1)
+          this.normalPriceDish = this.normalPriceDish - info.price
+          this.normalTimeDish = this.normalTimeDish - info.timeReady
+          this.normalHealthScore= this.normalHealthScore - info.healthScore
+        }
+      }
+    }
 
+    deleteVeganDish(info:any){
+      for (let i = 0; i < this.veganDish.length; i++) {
+        if(this.veganDish[i].id == info.id ){
+          this.veganDish.splice(i,1)
+          this.veganPriceDish = this.veganPriceDish - info.price
+          this.veganTimeDish = this.veganTimeDish - info.timeReady
+          this.veganHealthScore= this.veganHealthScore - info.healthScore
+        }
+      }
     }
 
 }

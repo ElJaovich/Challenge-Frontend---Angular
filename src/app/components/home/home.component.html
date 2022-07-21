@@ -13,17 +13,16 @@
     <div class="row">
         <h2>Normal Dish</h2>
         <ul class="col ist-group list-group-flush">
-          <div *ngIf="deleted">
             <li *ngFor="let dish of normalDish; let i = index" class="list-group-item">
               <div class="card" style="width: 18rem;">
                 <img src={{dish.image}} class="card-img-top" alt="100px">
                 <div class="card-body">
                   <h5 class="card-title">{{dish.title}}</h5>
+                  <button (click)="deleteVeganDish( dish )" type='submit'class="m-10 btn btn-secondary">show details</button>
                   <button (click)="deleteDish( dish )" type='submit'class="btn btn-danger">delete dish</button>
                 </div>
             </div>
           </li>
-          </div>
         </ul>
         <div>
           <span>Total Price: {{normalPriceDish}}</span>
@@ -44,7 +43,8 @@
         <img src={{dish.image}} class="card-img-top" alt="100px">
         <div class="card-body">
           <h5 class="card-title">{{dish.title}}</h5>
-          <button (click)="deleteDish( dish )" type='submit'class="btn btn-danger">delete dish</button>
+          <button (click)="deleteVeganDish( dish )" type='submit'class="m-10 btn btn-secondary">show details</button>
+          <button (click)="deleteVeganDish( dish )" type='submit'class="btn btn-danger">delete dish</button>
         </div>
       </div>
     </li>
