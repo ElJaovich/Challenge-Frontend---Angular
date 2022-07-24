@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DishService } from '../../services/dish.service'
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-home',
@@ -16,7 +17,8 @@ export class HomeComponent implements OnInit {
   public veganHealthScore: number = 0
   public normalDish: any
   public veganDish: any
-  public deleted: boolean = true 
+  public deleted: boolean = true
+  public idDish:any
 
   constructor(
     private dish:DishService
@@ -65,6 +67,15 @@ export class HomeComponent implements OnInit {
           this.veganHealthScore= this.veganHealthScore - info.healthScore
         }
       }
+    }
+
+    async showDish(info:any){
+      Swal.fire({
+        icon: 'info',
+        title:`${info.title}`,
+        text: `Price:${info.price} | Time Ready: ${info.timeReady} | HealthScore: ${info.healthScore}`,
+        footer: `${info.creditsText}`
+      })
     }
 
 }

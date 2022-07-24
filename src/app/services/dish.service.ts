@@ -18,7 +18,7 @@ export class DishService {
     for (let i = 0; i < normalDish.results.length; i++) {
       const idDish = normalDish.results[i].id
       const infoDish = await this.http.get(`https://api.spoonacular.com/recipes/${idDish}/information?apiKey=${this.token}`)
-      normalDishData.push({id: idDish, title: normalDish.results[i].title, summary: infoDish.summary, image: infoDish.image, price: infoDish.pricePerServing, healthScore: infoDish.healthScore, timeReady: infoDish.readyInMinutes})
+      normalDishData.push({creditsText: infoDish.creditsText ,id: idDish, title: normalDish.results[i].title, summary: infoDish.summary, image: infoDish.image, price: infoDish.pricePerServing, healthScore: infoDish.healthScore, timeReady: infoDish.readyInMinutes})
     } 
     return normalDishData
   }
@@ -31,7 +31,7 @@ export class DishService {
       for (let i = 0; i < veganDish.results.length; i++) {
         const idDish = veganDish.results[i].id
         const infoDish = await this.http.get(`https://api.spoonacular.com/recipes/${idDish}/information?apiKey=${this.token}`)
-        veganDishData.push({id: idDish, title: veganDish.results[i].title, summary: infoDish.summary, image: infoDish.image, price: infoDish.pricePerServing, healthScore: infoDish.healthScore, timeReady: infoDish.readyInMinutes})
+        veganDishData.push({creditsText: infoDish.creditsText, id: idDish, title: veganDish.results[i].title, summary: infoDish.summary, image: infoDish.image, price: infoDish.pricePerServing, healthScore: infoDish.healthScore, timeReady: infoDish.readyInMinutes})
       } 
       return veganDishData
     }

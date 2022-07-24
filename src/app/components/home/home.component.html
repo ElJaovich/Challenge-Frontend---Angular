@@ -18,7 +18,7 @@
                 <img src={{dish.image}} class="card-img-top" alt="100px">
                 <div class="card-body">
                   <h5 class="card-title">{{dish.title}}</h5>
-                  <button (click)="deleteVeganDish( dish )" type='submit'class="m-10 btn btn-secondary">show details</button>
+                  <button (click)="showDish( dish )" type='submit'class="m-10 btn btn-secondary">show details</button>
                   <button (click)="deleteDish( dish )" type='submit'class="btn btn-danger">delete dish</button>
                 </div>
             </div>
@@ -43,7 +43,7 @@
         <img src={{dish.image}} class="card-img-top" alt="100px">
         <div class="card-body">
           <h5 class="card-title">{{dish.title}}</h5>
-          <button (click)="deleteVeganDish( dish )" type='submit'class="m-10 btn btn-secondary">show details</button>
+          <button (click)="showDish( dish )" type='submit'class="m-10 btn btn-secondary">show details</button>
           <button (click)="deleteVeganDish( dish )" type='submit'class="btn btn-danger">delete dish</button>
         </div>
       </div>
